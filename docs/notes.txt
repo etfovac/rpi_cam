@@ -1,0 +1,16 @@
+
+pi@raspberrypi:~ $ sudo raspi-config 
+
+pi@raspberrypi:~ $ vcgencmd get_camera
+supported=1 detected=1
+pi@raspberrypi:~ $ raspistill -o Desktop/img.jpg
+pi@raspberrypi:~/Playground/rpi_cam $ python3 --version
+Python 3.7.3
+pi@raspberrypi:~/Playground/rpi_cam $ python3 /home/pi/Playground/rpi_cam/rpi_cam_gui.py
+Image: Preview.gif
+Image encoding: gif
+Image: 20201202_140133.jpg
+Image encoding: jpg
+
+pi@raspberrypi:~ $ scrot
+pi@raspberrypi:~ $ sudo apt install gnome-screenshot
