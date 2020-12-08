@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Display captured images from RPi NoIR Camera in GUI canvas 
+# Display captured images from RPi NoIR Camera in GUI canvas
 # Version:  v1.0
 # Author: Nikola Jovanovic
 # Date: 03.12.2020.
@@ -10,13 +10,13 @@
 import sys
 import os
 import datetime
-import subprocess
+# import subprocess
 import time
 import tkinter
 import picamera
 from PIL import Image
 sys.path.append(os.path.abspath(".."))
-from config.gui_config import ImgType, Prop, Encoding
+from config.gui_config import Prop, Encoding
 
 
 class CamGUI(tkinter.Frame):
@@ -24,13 +24,13 @@ class CamGUI(tkinter.Frame):
         self.parent = parent
         self.prop = Prop()
         tkinter.Frame.__init__(self,self.parent)
-        self.previewUpate= tkinter.IntVar()
+        self.previewUpate = tkinter.IntVar()
         self.statusStrip = tkinter.StringVar()
         self.canvas = tkinter.Canvas(self.parent,
                                      width=self.prop.szt.PreviewSize[0],
                                      height=self.prop.szt.PreviewSize[1])
         self.canvas.grid(row=0,columnspan=4)
-        self.CaptureBtn= tkinter.Button(self.parent,text="Capture",
+        self.CaptureBtn = tkinter.Button(self.parent,text="Capture",
                                         command = self.Capture)
         self.CaptureBtn.grid(row=1,column=0)
         self.previewChk = tkinter.Checkbutton(self.parent,text="Preview",
@@ -76,7 +76,7 @@ class CamGUI(tkinter.Frame):
         self.update()
 
     def Capture(self):
-        """Captures an image on RPi PiCamera, saves it to file and displays it. 
+        """Captures an image on RPi PiCamera, saves it to file and displays it.
             If 'Preview' is checked, overwrites a preview file.
             If not, saves to new file and overwrites a preview file.
         """
@@ -103,7 +103,7 @@ class CamGUI(tkinter.Frame):
     def UpdatePreview(self,filename,previewsize=Prop.szt.NoReSize):
         self.UpdateStatusStrip("Loading Preview...")
         self.DispImage = self.GetPhotoImage(filename,previewsize)
-        self.TK_Image=self.canvas.create_image(0,0,
+        self.TK_Image = self.canvas.create_image(0,0,
                                                anchor=tkinter.NW,
                                                image=self.DispImage)
         self.update()

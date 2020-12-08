@@ -10,8 +10,10 @@
 import tkinter
 import cam_gui
 
-root = tkinter.Tk()
+root=tkinter.Tk()
 root.title("RPi Camera GUI")
-
-cam = cam_gui.CamGUI(root)
+root.p
+cam=cam_gui.CamGUI(root)
 root.mainloop()
+
+# END
