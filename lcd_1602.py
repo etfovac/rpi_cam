@@ -1,7 +1,7 @@
 # Display RPi info on a monochromatic character LCD
-# Version:  v1.0
+# Version:  v2.0
 # Author: Nikola Jovanovic
-# Date: 04.09.2020.
+# Date: 09.12.2020.
 # Repo: https://github.com/etfovac/rpi_lcd
 # SW: Python 3.7.3
 # HW: Pi Model 3B  V1.2, LCD 1602 module (HD44780, 5V, Blue backlight, 
@@ -21,8 +21,7 @@
 import board
 import digitalio
 import adafruit_character_lcd.character_lcd as characterlcd
-from time import sleep  #, strftime
-# import datetime
+from time import sleep
 import signal
 import threading
 from pynput import keyboard
@@ -106,7 +105,6 @@ class LCD():
                 self.lcd_printout(1,3)
 
     def on_press(self,key):
-        # * global lcd_event_print  # couldn't add param to this callback
         # Keyboard interupt triggers thread event:
         if key == keyboard.Key.insert:
             self.lcd_event_print.set()
