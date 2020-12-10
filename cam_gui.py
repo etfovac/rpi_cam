@@ -108,5 +108,12 @@ class CamGUI(tkinter.Frame):
                                                image=self.DispImage)
         self.update()
 
-    # END
+def main():
+    root = tkinter.Tk()
+    root.title("RPi Camera GUI")
+    cam = CamGUI(root)
+    root.mainloop()
+  
+if __name__ == "__main__":
+    main()   
     
