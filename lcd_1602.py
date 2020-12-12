@@ -53,17 +53,19 @@ class LCD():
         self.LCD.backlight = True
         self.LCD.clear()
         self.LCD.blink = True
-        self.lcd_msg("<Setup>...")
+        self.status = "<Setup>..."
+        self.display_single(self.status)
         self.LCD.cursor = True
         
-        self.msg_list = cpi.lcd_msg_list(lcd_columns, lcd_rows)
+        self.msg_list = cpi.lcd_msg_list(lcd_columns, lcd_rows)  
+        #  RPi Infos
 
         self.printout_threads_setup([1,6])
         self.keyboard_listener_setup()
 
 
-    def lcd_msg(self, msg):
-        """Prints msg_str to terminal and LCD.
+    def display_single(self, msg):
+        """Prints a text message to terminal and LCD.
         LCD is first cleared.
         Args:
             msg (string): string formatted by printout_format.py into 2 rows of 16 chars
@@ -71,43 +73,90 @@ class LCD():
         self.LCD.clear()
         sleep(0.1)
         self.LCD.message = msg
-        print(msg)
+        print(self.LCD.message)
 
-    def lcd_printout(self, ix, delay):
+    def display_multi(self, list_msg, delay):
+        """Prints a list of text messages to terminal and LCD.
+        LCD is first cleared.
+        Args:
+            list_msg (string list):  a list of text messages formatted by printout_format.py into 2 rows of 16 chars
+            delay (int): thread sleep
+        """
+        self.LCD.clear()
+        sleep(0.1)
+        for msg in list_msg:
+            self.display_single(cpf.msg_form(msg))
+            sleep(delay)
+    
+    def display_multi_info(self, ix, delay):
+        """Displays RPi information (CPU, RAM, Eth, WLAN, etc)
 
+        Args:
+            ix (int):  screen index
+            delay (int): thread sleep
+        """
         for msg in self.msg_list[ix]:
-            self.lcd_msg(msg)
+            self.display_single(msg)
             sleep(delay)
 
-    def lcd_printout_timeout(self, end_event, event, timeout_sec=1):
-        # Triggered on event timeout
+    def lcd_print_timeout(self, end_event, event, timeout_sec=1):
+        # Triggered on event timeout >> periodic
         cntr = 0
         while (not event.isSet()) and (not end_event.isSet()):
-            
             cntr += cntr
             # print(cntr) #=0 => e.wait works
             event_is_set = event.wait(timeout_sec)
             if end_event.isSet(): break
             if event_is_set:
-                self.lcd_printout(0,1.5)
+                # infos[0]
+                self.display_multi_info(0,1.5)
                 event.clear()  # clear isSet flag in event
             else:
-                self.lcd_msg(cpf.msg_form(cpi.lcd_timestamp()[0:2]))
+                # timestamps
+                self.display_single(cpf.msg_form(cpi.lcd_timestamp()[0:2]))
 
             
-    def lcd_printout_timeout2(self, end_event, event, timeout_sec=6):
-        # Triggered on event timeout
-        while (not event.isSet()) and (not end_event.isSet()):
-            
-            event_is_set = event.wait(timeout_sec)
+    def lcd_print_to2(self, end_event, event_to, timeout_sec=6):
+        # Triggered on event timeout >> periodic
+        while (not event_to.isSet()) and (not end_event.isSet()):
+            event_is_set = event_to.wait(timeout_sec)
             if end_event.isSet(): break
             if not(event_is_set):  # periodic remainder
-                self.lcd_printout(1,3)
+                # infos [1] <controls>
+                self.display_multi_info(1,3)
+
+    def lcd_print(self, end_event, event_to):
+        # Not triggered on event timeout
+        while (not event_to.isSet()) and (not end_event.isSet()):
+            event_is_set = event_to.wait(0.2)
+            if end_event.isSet(): break
+            if event_is_set:
+               self.display_single(cpf.msg_form(self.status))       
+               event_to.clear()
+
+    def printout_threads_setup(self, timeout_sec=[1,6]):
+        self.event_print_to1 = threading.Event()
+        self.event_print_to2 = threading.Event()
+        self.event_end = threading.Event()
+        self.event_print = threading.Event()
+        #lcd_thread = threading.Thread(target=lcd_printout, args=())
+        #lcd_thread.start()
+        self.lcd_thread_p1 = threading.Thread(name='non-blocking P1',
+                                    target = self.lcd_print_timeout,
+                                    args = (self.event_end, self.event_print_to1,
+                                            timeout_sec[0]))
+        self.lcd_thread_p2 = threading.Thread(name='non-blocking P2',
+                                    target=self.lcd_print_to2,
+                                    args=(self.event_end, self.event_print_to2,
+                                          timeout_sec[1]))
+        self.lcd_thread_p3 = threading.Thread(name='non-blocking P3',
+                                    target=self.lcd_print,
+                                    args=(self.event_end, self.event_print))        
 
     def on_press(self,key):
         # Keyboard interupt triggers thread event:
         if key == keyboard.Key.insert:
-            self.lcd_event_print.set()
+            self.event_print_to1.set()
 
     #     try:
     #         print('alphanumeric key {0} pressed'.format(key.char))
@@ -116,30 +165,20 @@ class LCD():
 
     def on_release(self,key):
         if key == keyboard.Key.esc:
-            print('{0} released - Stopping the keyboard listener'.format(key))
+            self.status = cpf.msg_form("<Esc>","No keyboard")
+            self.event_print.set()
             return False
         if key == keyboard.Key.end:
             self.end()
             return False
-
-    def printout_threads_setup(self, timeout_sec=[1,6]):
-        self.lcd_event_print = threading.Event()
-        self.lcd_event_print2 = threading.Event()
-        self.lcd_event_end = threading.Event()
-        #lcd_thread = threading.Thread(target=lcd_printout, args=())
-        #lcd_thread.start()
-        self.lcd_thread = threading.Thread(name='non-blocking P1',
-                                    target = self.lcd_printout_timeout,
-                                    args = (self.lcd_event_end, self.lcd_event_print,
-                                            timeout_sec[0]))
-        self.lcd_thread2 = threading.Thread(name='non-blocking P2',
-                                    target=self.lcd_printout_timeout2,
-                                    args=(self.lcd_event_end, self.lcd_event_print2,
-                                          timeout_sec[1]))
+        if key == keyboard.Key.tab:
+            self.event_print.set()
 
     def printout_threads_start(self):
-        self.lcd_thread.start()
-        self.lcd_thread2.start()
+        self.lcd_thread_p1.start()
+        self.lcd_thread_p2.start()
+        self.lcd_thread_p3.start()
+        self.status = "Threads..." 
 
     def keyboard_listener_setup(self):
         self.listener = keyboard.Listener(on_press = self.on_press,
@@ -151,9 +190,10 @@ class LCD():
 
     def end(self):
         self.listener.stop()
-        self.lcd_event_end.set()  # Send End event to LCD printouts
-        self.lcd_thread.join()
-        self.lcd_thread2.join()
+        self.event_end.set()  # Send End event to LCD printouts
+        self.lcd_thread_p1.join()
+        self.lcd_thread_p2.join()
+        self.lcd_thread_p3.join()
         self.LCD.backlight = False  # Turns off the LED backlight
         sys.exit(0)
 
