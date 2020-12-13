@@ -2,8 +2,8 @@
 # Display captured images and status from RPi NoIR Camera in GUI and LCD
 # Version:  v1.0
 # Author: Nikola Jovanovic
-# Date: 03.12.2020.
-# Repo: https://github.com/etfovac/rpi_cam
+# Date: 12.12.2020.
+# Repo: https://github.com/etfovac/rpi_cam/
 # SW: Python 3.7.3
 # HW: Pi Model 3B  V1.2, NoIR Camera module, LCD 16x2
 
@@ -16,17 +16,13 @@ LCD_ref.printout_threads_start()
 LCD_ref.keyboard_listener_start()
 
 class GUI(cam_gui.CamGUI):
-    def UpdateStatusStrip(self,text):
-        self.statusStrip.set(text)
-        self.update()
-        # LCD_ref.status = text
-        # LCD_ref.event_print.set()
+    def UpdateStatusStrip(self,line):
+        self.statusStrip.set(line)
+        self.root.update()
+        LCD_ref.status = self.statusStrip.get()
+        LCD_ref.event_print.set()
 
-        
-root = tkinter.Tk()
-root.title("RPi Camera GUI")
-# cam = cam_gui.CamGUI(root)
-GUI(root)
-root.mainloop()  # last line
+rpi_gui = GUI("RPi: IR Camera + LCD")
+rpi_gui.start()
 
-# END
+# * END

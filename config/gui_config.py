@@ -23,6 +23,7 @@ def Encoding(imgfile):
 class Prop():
     szt = ImgSize()
     imt = ImgType()
-    PreviewFile = "Preview"+imt.GIF
-    TempFile = "Preview"+imt.PPM
-    SaveImageType = Encoding(imt.PNG)
+    PreviewFile = "temp"+imt.GIF
+    TempFile = "temp"+imt.PPM
+    SaveFileType = imt.PNG
+    SaveImageType = Encoding(SaveFileType)
