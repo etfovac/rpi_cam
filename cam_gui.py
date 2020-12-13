@@ -23,6 +23,7 @@ class CamGUI():
     def __init__(self, title):
         self.root = tkinter.Tk()  # tkinter.Frame master/top/root
         self.root.title(title)
+        self.root.protocol('WM_DELETE_WINDOW', self.stop)
         self.prop = Prop()
 
         self.previewUpate = tkinter.IntVar()
@@ -114,6 +115,9 @@ class CamGUI():
 
     def start(self):
         self.root.mainloop()
+
+    def stop(self):
+        self.root.destroy()
 
 def main():
     gui=CamGUI("RPi Camera GUI")

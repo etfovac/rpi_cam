@@ -16,11 +16,17 @@ LCD_ref.printout_threads_start()
 LCD_ref.keyboard_listener_start()
 
 class GUI(cam_gui.CamGUI):
+    def __init__(self, title):
+        super().__init__(title)
+        
     def UpdateStatusStrip(self,line):
-        self.statusStrip.set(line)
-        self.root.update()
+        super().UpdateStatusStrip(line)
         LCD_ref.status = self.statusStrip.get()
         LCD_ref.event_print.set()
+
+    def stop(self):
+        super().stop()
+        LCD_ref.event_end.set()
 
 rpi_gui = GUI("RPi: IR Camera + LCD")
 rpi_gui.start()
