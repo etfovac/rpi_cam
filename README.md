@@ -1,37 +1,24 @@
-## Welcome to GitHub Pages
+# RPi &amp; Cam  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/etfovac/rpi_cam/blob/master/LICENSE) [![GitHub (pre-)release](https://img.shields.io/badge/releases--yellow.svg)](https://github.com/etfovac/rpi_cam/releases/)
 
-You can use the [editor on GitHub](https://github.com/etfovac/rpi_cam/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+**RPi &amp; Cam** is a project which uses and improves [Raspberry Pi GPIO & LCD 16x2](https://github.com/etfovac/rpi_lcd) project and merges it with a Tkinter GUI for previewing and controlling the [NoIR Camera module](https://www.raspberrypi.org/products/pi-noir-camera-v2/?resellerType=home).  
+  
+> SW: Python 3.7.3, Visual Studio Code
+> HW: Pi Model 3B  V1.2, Infrared Camera, LCD  
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Keywords  
+> Raspberry Pi GPIO  
+> Infrared Camera  
+> LCD  
+> Python threading  
+> Python GUI (Tkinter)  
 
-### Markdown
+### Table of Contents (Wiki)
+[Wiki Home](https://github.com/etfovac/rpi_cam/wiki)  
+[Overview](https://github.com/etfovac/rpi_cam/wiki/Overview)  
+[Notes](https://github.com/etfovac/rpi_cam/wiki/Notes)  
+[Examples](https://github.com/etfovac/rpi_cam/wiki/Examples)  
+[References](https://github.com/etfovac/rpi_cam/wiki/References)  
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/etfovac/rpi_cam/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+[rpi_cam](https://github.com/etfovac/rpi_cam) is maintained by [etfovac](https://github.com/etfovac).
