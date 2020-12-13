@@ -78,8 +78,10 @@ class CamGUI():
 
     def UpdateStatusStrip(self,line):
         self.statusStrip.set(line)
-        print("Cam: {}".format(self.statusStrip.get()))
         self.root.update()
+        status_p = self.statusStrip.get()
+        print("Cam: {}".format(status_p))
+        return status_p
 
     def Capture(self):
         """Captures an image on RPi PiCamera, saves it to file and displays it.
