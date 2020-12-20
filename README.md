@@ -1,4 +1,6 @@
-# RPi &amp; Cam  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/etfovac/rpi_cam/blob/master/LICENSE) [![GitHub (pre-)release](https://img.shields.io/badge/releases--yellow.svg)](https://github.com/etfovac/rpi_cam/releases/)
+# RPi &amp; Cam  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/etfovac/rpi_cam/blob/master/LICENSE) [![GitHub (pre-)release](https://img.shields.io/badge/releases--yellow.svg)](https://github.com/etfovac/rpi_cam/releases/) [![DOI](https://zenodo.org/badge/318187353.svg)](https://zenodo.org/badge/latestdoi/318187353)
+
+
 
 **RPi &amp; Cam** is a project which uses and improves [Raspberry Pi GPIO & LCD 16x2](https://github.com/etfovac/rpi_lcd) project and merges it with a Tkinter GUI for previewing and controlling the [NoIR Focal Adjustable Night Vision Camera module](https://www.raspberrypi.org/products/pi-noir-camera-v2/?resellerType=home).  
   
