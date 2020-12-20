@@ -14,13 +14,15 @@
 > Python threading  
 > Python GUI (Tkinter)  
 
+### HW Layout and connections  
+<img src="https://github.com/etfovac/rpi_lcd/blob/master/graphics/RPi%20IR.png" alt="RPi IR LCD Layout">
+
 ### Table of Contents (Wiki)
 [Wiki Home](https://github.com/etfovac/rpi_cam/wiki)  
 [Overview](https://github.com/etfovac/rpi_cam/wiki/Overview)  
 [Notes](https://github.com/etfovac/rpi_cam/wiki/Notes)  
 [Examples](https://github.com/etfovac/rpi_cam/wiki/Examples)  
 [References](https://github.com/etfovac/rpi_cam/wiki/References)  
-
 
 
 [rpi_cam](https://github.com/etfovac/rpi_cam) is maintained by [etfovac](https://github.com/etfovac).
