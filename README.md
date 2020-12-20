@@ -15,7 +15,7 @@
 > Python GUI (Tkinter)  
 
 ### HW Layout and connections  
-<img src="https://github.com/etfovac/rpi_lcd/blob/master/graphics/RPi%20IR.png" alt="RPi IR LCD Layout">
+<a href="https://github.com/etfovac/rpi_lcd/blob/master/graphics/RPi%20IR.png"><img src="https://github.com/etfovac/rpi_lcd/blob/master/graphics/RPi%20IR.png"></a>
 
 ### Table of Contents (Wiki)
 [Wiki Home](https://github.com/etfovac/rpi_cam/wiki)  
