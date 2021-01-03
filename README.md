@@ -4,7 +4,7 @@
 
 **RPi &amp; Cam** is a project which uses and improves [Raspberry Pi GPIO & LCD 16x2](https://github.com/etfovac/rpi_lcd) project and merges it with a Tkinter GUI for previewing and controlling the [NoIR Focal Adjustable Night Vision Camera module](https://www.raspberrypi.org/products/pi-noir-camera-v2/?resellerType=home).  
   
-> SW: Python 3.7.3, Visual Studio Code
+> SW: Python 3.7.3, Visual Studio Code  
 > HW: Pi Model 3B  V1.2, Infrared Camera, LCD  
 
 ### Keywords  
